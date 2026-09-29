@@ -60,6 +60,9 @@ Credentials: `incident_user` / `incident_pass` (root: `root`). Override the back
 
 ## REST API — base path `/api/incidents`
 
+**Swagger UI:** http://localhost:8080/swagger-ui.html lets you try every endpoint in the browser
+("Try it out" comes pre-filled with valid example data). The OpenAPI spec is at http://localhost:8080/v3/api-docs.
+
 | Method | Path | Purpose | Success |
 |---|---|---|---|
 | GET | `/api/incidents` | All incidents with full details | 200 |
