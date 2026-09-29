@@ -17,9 +17,11 @@ SpringBootReactProject/
 | Java JDK | 21 |
 | Maven | 3.9+ |
 | Node.js (includes npm) | 22 LTS or newer |
-| Docker Desktop | running |
+| Docker Desktop | running (only for MySQL; not needed with the H2 profile) |
 
 ## Run it
+
+MySQL is the default database. To run without it, see [Run without MySQL](#run-without-mysql-in-memory-h2).
 
 ```powershell
 # 1. Start MySQL (first start creates the incident table + 3 sample incidents)
@@ -36,6 +38,21 @@ npm run dev
 ```
 
 Open http://localhost:5173.
+
+### Run without MySQL (in-memory H2)
+
+The `h2` profile uses an in-memory H2 database, so no Docker or MySQL is needed.
+Everything works the same, with the same 3 sample incidents, but data is reset on every restart.
+
+```powershell
+cd backend
+mvn spring-boot:run "-Dspring-boot.run.profiles=h2"
+```
+
+H2 console: http://localhost:8080/h2-console (JDBC URL `jdbc:h2:mem:incident_management`, user `sa`, empty password).
+Profile settings: `backend/src/main/resources/application-h2.yml`; sample data: `data-h2.sql`.
+
+### MySQL details
 
 MySQL is exposed on host port **3307**, so it does not clash with a local MySQL on 3306.
 Credentials: `incident_user` / `incident_pass` (root: `root`). Override the backend's connection with
@@ -87,3 +104,4 @@ Errors are returned as RFC 7807 problem JSON, with a `fieldErrors` map for valid
 cd backend
 mvn test
 ```
+Tests need no MySQL: controller tests use mocks, and `IncidentH2IntegrationTest` runs the full stack on H2.
