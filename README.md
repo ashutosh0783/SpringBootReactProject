@@ -107,4 +107,7 @@ Errors are returned as RFC 7807 problem JSON, with a `fieldErrors` map for valid
 cd backend
 mvn test
 ```
-Tests need no MySQL: controller tests use mocks, and `IncidentH2IntegrationTest` runs the full stack on H2.
+Tests need no MySQL:
+- `IncidentServiceTest`: unit tests for the service layer and its business rules (Mockito, no Spring context)
+- `IncidentControllerTest`: REST layer with a mocked service
+- `IncidentH2IntegrationTest`: the full stack on in-memory H2
