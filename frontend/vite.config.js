@@ -10,4 +10,10 @@ export default defineConfig({
       '/api': 'http://localhost:8080',
     },
   },
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+    // Wipe mock call history between tests
+    clearMocks: true,
+  },
 })
